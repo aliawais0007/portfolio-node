@@ -79,7 +79,6 @@ router.post("/contact", express.urlencoded({ extended: true }), function (req, r
         const HubspotContact = async () => {
             try {
                 const apiResponse = await hubspotClient.crm.contacts.basicApi.create(simplePublicObjectInput);
-                console.log(JSON.stringify(apiResponse.body, null, 2));
                 mailTransporter.sendMail(mailDetails, function (err, data) {
                     if (err) {
                         res.status(400).send({ error: err });
@@ -88,10 +87,12 @@ router.post("/contact", express.urlencoded({ extended: true }), function (req, r
                     }
                 });
             } catch (e) {
-                if (e.message === 'HTTP request failed') {
+                console.log(e.statusCode)
+                if (e.statusCode === 409) {
                     const errMessage = e.response.body ? e.response.body.message : '';
                     res.status(400).send({ error: errMessage.split('.')[0] });
                 }
+                else if (e.statusCode === 200) res.status(200).send({ message: "Request has been submitted!" });
             }
         }
 
