@@ -6,7 +6,7 @@ const hubspot = require('@hubspot/api-client');
 
 
 
-router.post("/contact", express.urlencoded({ extended: true }), function (req, res, next) {
+module.exports = function ContactController(req, res, next) {
     const body = req.body;
     // Website you wish to allow to connect
     res.setHeader('Access-Control-Allow-Origin', '*');
