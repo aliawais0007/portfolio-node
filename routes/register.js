@@ -4,7 +4,7 @@ var router = express.Router();
 router.post('/', function (req, res) {
     res.send('register router');
 });
-router.post('/', function (req, res) {
+router.get('/', function (req, res) {
     res.send('register Get router');
 });
 

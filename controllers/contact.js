@@ -56,8 +56,11 @@ router.post("/contact", express.urlencoded({ extended: true }), function (req, r
         let mailDetails = {
             from: "crazybaib@gmail.com",
             to: body.email,
-            subject: body.subject[0],
+            subject: body.subject,
             text: body.message,
+            headers: {
+                'priority': 'high'
+            },
             html: `<h3>${body.name}</h3><h5>${body.phone}</h5><h5>${body.email}</h5><h5>${body.subject}</h5><p>${body.message}</p>`
         };
 
